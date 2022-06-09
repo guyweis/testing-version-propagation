@@ -23,7 +23,7 @@ jobs:
         run: |
           echo "GIT VERSION PROPOGATION"
           echo ::set-output name=tag::${GITHUB_REF#refs/*/}
-          tag=${{ steps.current_branch.outputs.tag }}
+          tag=$(echo ${{ steps.current_branch.outputs.tag }})
           echo $tag
           #         second sub tag example is the 27 in 2.27
           second_sub_tag=$(echo ${{ steps.current_branch.outputs.tag }} | cut -c3-4)
