@@ -81,8 +81,8 @@ jobs:
             fi
           else
             echo "Trying to update the develop branch"
-            git fetch
             git checkout origin/develop
+            git pull
             echo "server/VERSION merge=ours" > .git/info/attributes
             git config merge.ours.driver true
             branch_name="merge/${{ steps.current_branch.outputs.tag }}_to_origin/develop"
