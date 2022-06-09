@@ -28,10 +28,10 @@ jobs:
           tag=$(echo ${{ steps.current_branch_tag.outputs.tag }})
           echo $tag
           #         second sub tag example is the 27 in 2.27
-          second_sub_tag=$(echo ${{ steps.current_branch.outputs.tag }} | cut -c3-4)
+          second_sub_tag=$(echo ${{ steps.current_branch_tag.outputs.tag }} | cut -c3-4)
           echo second sub tag is $second_sub_tag
           #         first sub tag is the 2 in 2.27 
-          first_sub_tag=$(echo ${{ steps.current_branch.outputs.tag }} | cut -c1-1)
+          first_sub_tag=$(echo ${{ steps.current_branch_tag.outputs.tag }} | cut -c1-1)
           echo first sub tag is $first_sub_tag
           #         next version minor + 1 = 27+1 = 28
           next_version_minor_num="$(($second_sub_tag + 1))"
