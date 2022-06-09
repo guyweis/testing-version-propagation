@@ -18,12 +18,14 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.7
-      - name: Current branch label
-        id: current_branch
+      - name: Current branch tag
+        id: current_branch_tag
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - name: Propagation
+        id: Propagation
         run: |
           echo "GIT VERSION PROPOGATION"
-          echo ::set-output name=tag::${GITHUB_REF#refs/*/}
-          tag=$(echo ${{ steps.current_branch.outputs.tag }})
+          tag=$(echo ${{ steps.current_branch_tag.outputs.tag }})
           echo $tag
           #         second sub tag example is the 27 in 2.27
           second_sub_tag=$(echo ${{ steps.current_branch.outputs.tag }} | cut -c3-4)
