@@ -88,12 +88,11 @@ jobs:
             git checkout -b $branch_name
             echo merging $tag into origin/develop
             current_commit=$(git rev-parse HEAD)
-            echo hi
             git merge $source_version --no-edit
             git push origin $branch_name
             after_merge_commit=$(git rev-parse HEAD)
             if ! "$current_commit" == "$after_merge_commit" ;
             then
-              git request-pull [-p] $target_version_branch $git_remote $branch_name
+              git request-pull $target_version_branch $git_remote $branch_name
             fi
           fi
