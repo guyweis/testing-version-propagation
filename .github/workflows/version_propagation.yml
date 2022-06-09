@@ -35,6 +35,7 @@ jobs:
           next_version_major_num="$(($first_sub_tag + 1))"
           echo next version major is $next_version_major_num
           git_remote=$(git config --get remote.origin.url) 
+          echo $git_remote
           target_version_branch_minor=origin/release-$first_sub_tag.$next_version_minor_num
           echo target version branch minor is $target_version_branch_minor 
           target_version_branch_major=origin/release-$next_version_major_num.0
