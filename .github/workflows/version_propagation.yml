@@ -88,13 +88,13 @@ jobs:
             branch_name="merge/${{ steps.current_branch.outputs.tag }}_to_origin/develop"
             echo "checking out to a new branch off of the target branch"
             git checkout -b $branch_name
+            git push --set-upstream origin $branch_name
             echo "merging ${{ steps.current_branch.outputs.tag }} into origin/develop"
             current_commit=$(git rev-parse HEAD)
             git merge $source_version --no-edit
             after_merge_commit=$(git rev-parse HEAD)
             if ! "$current_commit" == "$after_merge_commit" ;
             then
-              git push --set-upstream  origin $branch_name
               git request-pull [-p] $target_version_branch $git_remote $branch_name
             fi
           fi
