@@ -94,6 +94,6 @@ jobs:
             after_merge_commit=$(git rev-parse HEAD)
             if ! "$current_commit" == "$after_merge_commit" ;
             then
-              git request-pull $target_version_branch $git_remote $branch_name
+              hub pull-request [-focpbh] -m "my title"
             fi
           fi
