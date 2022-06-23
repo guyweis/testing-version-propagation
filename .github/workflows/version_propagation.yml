@@ -54,11 +54,11 @@ jobs:
             echo merging ${{ steps.current_branch_tag.outputs.tag }} into $target_version_branch_minor
             current_commit=$(git rev-parse HEAD)
             git merge $source_version --no-edit
+            git push --set-upstream  origin $branch_name
             after_merge_commit=$(git rev-parse HEAD)
             if ! "$current_commit" == "$after_merge_commit" ;
             then
-              git push --set-upstream  origin $branch_name
-              git request-pull [-p] $target_version_branch_minor $git_remote $branch_name
+              hub pull-request -b $target_version_branch_minor -m 'version propagation from $source_version'
             fi
           elif git branch -r | grep $target_version_branch_major ;
           then
@@ -73,11 +73,11 @@ jobs:
             echo "merging ${{ steps.current_branch.outputs.tag }} into $target_version_branch_major"
             current_commit=$(git rev-parse HEAD)
             git merge $source_version --no-edit
+            git push --set-upstream  origin $branch_name
             after_merge_commit=$(git rev-parse HEAD)
             if ! "$current_commit" == "$after_merge_commit" ;
             then
-              git push --set-upstream  origin $branch_name
-              git request-pull [-p] $target_version_branch_major $git_remote $branch_name
+              hub pull-request -b $target_version_branch_major -m 'version propagation from $source_version'
             fi
           else
             echo Trying to update the develop branch
@@ -90,10 +90,10 @@ jobs:
             echo merging $tag into origin/develop
             current_commit=$(git rev-parse HEAD)
             git merge $source_version --no-edit
-            git push origin $branch_name
+            git push --set-upstream  origin $branch_name
             after_merge_commit=$(git rev-parse HEAD)
             if ! "$current_commit" == "$after_merge_commit" ;
             then
-              hub pull-request [-focpbh] -m "my title"
+              hub pull-request -b develop -m 'some message'
             fi
           fi
