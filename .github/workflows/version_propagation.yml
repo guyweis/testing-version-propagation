@@ -84,7 +84,7 @@ jobs:
             git checkout origin/develop
             echo "server/VERSION merge=ours" > .git/info/attributes
             git config merge.ours.driver true
-            branch_name=merge/${{ steps.current_branch.outputs.tag }}_to_origin/develop
+            branch_name=merge/$tag_to_origin/develop
             echo checking out to a new branch off of the target branch
             git checkout -b $branch_name
             echo merging $tag into origin/develop
@@ -94,7 +94,6 @@ jobs:
             after_merge_commit=$(git rev-parse HEAD)
             if ! "$current_commit" == "$after_merge_commit" ;
             then
-              echo went in 
               hub pull-request -b develop -m 'version propagation from $source_version'
             fi
           fi
